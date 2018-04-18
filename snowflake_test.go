@@ -58,7 +58,7 @@ func TestBase32(t *testing.T) {
 
 	for i := 0; i < 100; i++ {
 
-		sf := node.Generate()
+		sf, _ := node.Generate()
 		b32i := sf.Base32()
 		psf, err := ParseBase32([]byte(b32i))
 		if err != nil {
@@ -73,7 +73,7 @@ func TestBase32(t *testing.T) {
 func BenchmarkParseBase32(b *testing.B) {
 
 	node, _ := NewNode(1)
-	sf := node.Generate()
+	sf, _ := node.Generate()
 	b32i := sf.Base32()
 
 	b.ReportAllocs()
@@ -86,7 +86,7 @@ func BenchmarkParseBase32(b *testing.B) {
 func BenchmarkBase32(b *testing.B) {
 
 	node, _ := NewNode(1)
-	sf := node.Generate()
+	sf, _ := node.Generate()
 
 	b.ReportAllocs()
 
@@ -101,7 +101,7 @@ func TestBase58(t *testing.T) {
 
 	for i := 0; i < 10; i++ {
 
-		sf := node.Generate()
+		sf, _ := node.Generate()
 		b58 := sf.Base58()
 		psf, err := ParseBase58([]byte(b58))
 		if err != nil {
@@ -115,7 +115,7 @@ func TestBase58(t *testing.T) {
 func BenchmarkParseBase58(b *testing.B) {
 
 	node, _ := NewNode(1)
-	sf := node.Generate()
+	sf, _ := node.Generate()
 	b58 := sf.Base58()
 
 	b.ReportAllocs()
@@ -128,7 +128,7 @@ func BenchmarkParseBase58(b *testing.B) {
 func BenchmarkBase58(b *testing.B) {
 
 	node, _ := NewNode(1)
-	sf := node.Generate()
+	sf, _ := node.Generate()
 
 	b.ReportAllocs()
 
@@ -145,14 +145,14 @@ func BenchmarkGenerate(b *testing.B) {
 
 	b.ResetTimer()
 	for n := 0; n < b.N; n++ {
-		_ = node.Generate()
+		_, _ = node.Generate()
 	}
 }
 
 func BenchmarkUnmarshal(b *testing.B) {
 	// Generate the ID to unmarshal
 	node, _ := NewNode(1)
-	id := node.Generate()
+	id, _ := node.Generate()
 	bytes, _ := id.MarshalJSON()
 
 	var id2 ID
@@ -167,7 +167,7 @@ func BenchmarkUnmarshal(b *testing.B) {
 func BenchmarkMarshal(b *testing.B) {
 	// Generate the ID to marshal
 	node, _ := NewNode(1)
-	id := node.Generate()
+	id, _ := node.Generate()
 
 	b.ReportAllocs()
 	b.ResetTimer()
